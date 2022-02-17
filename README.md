@@ -42,6 +42,8 @@ $ pip install torch-scatter torch-sparse torch-cluster torch-spline-conv torch-g
 ```
 
 ### Installation guidelines: scenario #2
-A more convenient way of running experiments is to instantiate two docker containers having CUDA `10.1` and CUDA `10.2` already installed. We provide the Dockerfile to build each of the two containers.
+A more convenient way of running experiments is to instantiate two docker containers having CUDA `10.1` and CUDA `10.2` already installed, respectively. We provide the Dockerfile to build each of the two containers.
 
 to be continued...
+
+### Datasets
