@@ -55,4 +55,6 @@ At `./data/` you may find the files for the datasets, i.e., training, validation
 | **Boys \& Girls** | [drive](https://drive.google.com/file/d/1X_2Sfqba7_3iSYYTeEYlCC12sQpcPdAD/view?usp=sharing) |
 | **Men**           | [drive](https://drive.google.com/file/d/1bk8uHWBVOGkUmQjCzMEXX6BKa4UDtIW-/view?usp=sharing) |
 
-After having downloaded the three zip files, just put them into `./data/amazon_baby/`, `./data/amazon_boys_girls`, and `./data/amazon_men`, respectively. Finally, run the bash scripts `./data/<dataset_name>/create_<dataset_name>.sh` to complete the procedure. Now you are all set, and you can start training and testing the models.
+After having downloaded the three zip files, just put them into `./data/amazon_baby/`, `./data/amazon_boys_girls`, and `./data/amazon_men`, respectively. 
+
+Finally, run the bash scripts `./data/<dataset_name>/create_<dataset_name>.sh` to complete the procedure. Now you are all set, and you can start training and testing the models.
