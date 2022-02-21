@@ -1,0 +1,35 @@
+experiment:
+  backend: pytorch
+  data_config:
+    strategy: fixed
+    train_path: ../data/{0}/trainingset.tsv
+    validation_path: ../data/{0}/validationset.tsv
+    test_path: ../data/{0}/testset.tsv
+    side_information:
+      - dataloader: InteractionsTextualAttributes
+        interactions_features: ../data/{0}/original/text_features_all-mpnet-base-v2/
+        interactions: ../data/{0}/interactions.tsv
+  dataset: amazon_boys_girls
+  top_k: 50
+  evaluation:
+    cutoffs: [10, 20, 50]
+    simple_metrics: [Recall, HR, nDCG, Precision, F1, MAP, MAR, LAUC, ItemCoverage, nDCGRendle2020, Gini, SEntropy, EFD, EPC]
+  gpu: 0
+  external_models_path: ../external/models/__init__.py
+  models:
+    external.EGCF:
+      meta:
+        hyper_max_evals: 10
+        hyper_opt_alg: tpe
+        verbose: True
+        save_weights: False
+        save_recs: False
+        validation_rate: 20
+        validation_metric: Recall
+        restore: False
+      lr: [loguniform, -8.90775527898, -6.90775527898]
+      n_layers: [quniform, 2, 3, 1]
+      epochs: 400
+      batch_size: 256
+      emb: 64
+      l_w: [quniform, 10e-5, 10, 100]
