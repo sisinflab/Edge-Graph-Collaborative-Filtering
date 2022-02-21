@@ -80,3 +80,8 @@ The following table reports pointers to all configuration files. Please, use the
 | **NGCF**     |   [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/ngcf/amazon_baby.yml)   |   [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/ngcf/amazon_boys_girls.yml)   |   [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/ngcf/amazon_men.yml)   |
 | **LightGCN** | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/lightgcn/amazon_baby.yml) | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/lightgcn/amazon_boys_girls.yml) | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/lightgcn/amazon_men.yml) |
 | **EGCF**     |   [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/egcf/amazon_baby.yml)   |   [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/egcf/amazon_boys_girls.yml)   |   [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/egcf/amazon_men.yml)   |
+
+Results about calculated metrics are available in the folder `./results/<dataset-name>/performance/`. Specifically, you need to access the tsv file having the following name pattern: `rec_cutoff_<cutoff>_relthreshold_0_<datetime-experiment-end>.tsv`.
+
+### Paired t-test
+to be continued...
