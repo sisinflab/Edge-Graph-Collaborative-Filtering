@@ -1,8 +1,9 @@
 from elliot.run import run_experiment
 import argparse
 
-parser = argparse.ArgumentParser(description="Run sample main.")
-parser.add_argument('--config', type=str, default='test_graph_amazon_baby')
+parser = argparse.ArgumentParser(description="Run training and evaluation.")
+parser.add_argument('--model', type=str, default='egcf')
+parser.add_argument('--dataset', type=str, default='amazon_baby')
 args = parser.parse_args()
 
-run_experiment(f"config_files/{args.config}.yml")
+run_experiment(f"config_files/{args.model}_{args.dataset}.yml")
