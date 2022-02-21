@@ -58,3 +58,25 @@ At `./data/` you may find the files for the datasets, i.e., training, validation
 After having downloaded the three zip files, just put them into `./data/amazon_baby/`, `./data/amazon_boys_girls`, and `./data/amazon_men`, respectively. 
 
 Finally, run the bash scripts `./data/<dataset_name>/create_<dataset_name>.sh` to complete the procedure. Now you are all set, and you can start training and testing the models.
+
+### Training and testing models
+To train and evaluate models an all considered metrics, you may run the following command:
+
+```
+$ python -u start_experiments.py --model <model-name> --dataset <dataset-name>
+```
+
+where `<model-name>` and `<dataset-name>` refer to the name of the model to be run and the dataset on which to run the experiment, respectively.
+
+The following table reports pointers to all configuration files. Please, use the same naming scheme as the row and the column headers for the model and dataset names.
+
+|          | Baby                                                                                                                        | Boys <br/>Girls                                                                                                                   | Men                                                                                                                        |
+|----------|:----------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| MostPop  |                                                                                                                             |                                                                                                                                   |                                                                                                                            |
+| BPRMF    |                                                                                                                             |                                                                                                                                   |                                                                                                                            |
+| MultiVae |                                                                                                                             |                                                                                                                                   |                                                                                                                            |
+| ConvMF   | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/convmf/amazon_baby.yml)   | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/convmf/amazon_boys_girls.yml)   | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/convmf/amazon_men.yml)   |
+| DeepCoNN | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/deepconn/amazon_baby.yml) | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/deepconn/amazon_boys_girls.yml) | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/deepconn/amazon_men.yml) |
+| NGCF     | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/ngcf/amazon_baby.yml)     | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/ngcf/amazon_boys_girls.yml)     | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/ngcf/amazon_men.yml)     |
+| LightGCN | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/lightgcn/amazon_baby.yml) | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/lightgcn/amazon_boys_girls.yml) | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/lightgcn/amazon_men.yml) |
+| EGCF     | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/egcf/amazon_baby.yml)     | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/egcf/amazon_boys_girls.yml)     | [config](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/blob/master/config_files/egcf/amazon_men.yml)     |
