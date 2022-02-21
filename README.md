@@ -6,13 +6,13 @@ This repository is heavily dependent on the framework **Elliot**, so we suggest 
 
 We report the codes for the baselines, and the proposed model EGCF. In the following, we indicate the specific path for each model, and its reference backend (i.e., NumPy, TensorFlow or PyTorch):
 
-- MostPop (path: `./elliot/recommender/unpersonalized/most_popular/`, backend: `NumPy`)
-- BPRMF (path: `./elliot/recommender/latent_factor_models/BPRMF/`, backend: `NumPy`)
-- MultiVAE (path: `./elliot/recommender/autoencoders/vae/`, backend: `TensorFlow`)
-- ConvMF (path: `./external/models/convmf/`, backend: `TensorFlow`)
-- DeepCoNN (path: `./external/models/deepconn/`, backend: `TensorFlow`)
-- NGCF (path: `./external/models/ngcf/`, backend: `PyTorch`)
-- LightGCN (path: `./external/models/lightgcn/`, backend: `PyTorch`)
+- MostPop ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/unpersonalized/most_popular), backend: `NumPy`)
+- BPRMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/latent_factor_models/BPRMF), backend: `NumPy`)
+- MultiVAE ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/autoencoders/vae), backend: `TensorFlow`)
+- ConvMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/convmf), backend: `TensorFlow`)
+- DeepCoNN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/deepconn), backend: `TensorFlow`)
+- NGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/ngcf), backend: `PyTorch`)
+- LightGCN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/lightgcn), backend: `PyTorch`)
 - EGCF (path: `./external/models/egcf/`, backend: `PyTorch`)
 
 As for `TensorFlow`, we tested our models using the gpu version `2.3.2`, with CUDA `10.1` and cuDNN `7.6`. 
