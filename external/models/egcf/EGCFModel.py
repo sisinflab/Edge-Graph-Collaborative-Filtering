@@ -18,7 +18,7 @@ import numpy as np
 import random
 
 
-class EGCFv2Model(torch.nn.Module, ABC):
+class EGCFModel(torch.nn.Module, ABC):
     def __init__(self,
                  num_users,
                  num_items,
@@ -32,7 +32,7 @@ class EGCFv2Model(torch.nn.Module, ABC):
                  rows,
                  cols,
                  random_seed,
-                 name="EGCFv2",
+                 name="EGCF",
                  **kwargs
                  ):
         super().__init__()
