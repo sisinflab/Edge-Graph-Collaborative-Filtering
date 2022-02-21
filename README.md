@@ -13,7 +13,7 @@ We report the codes for the baselines, and the proposed model EGCF. In the follo
 - DeepCoNN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/deepconn), backend: `TensorFlow`)
 - NGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/ngcf), backend: `PyTorch`)
 - LightGCN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/lightgcn), backend: `PyTorch`)
-- EGCF (path: `./external/models/egcf/`, backend: `PyTorch`)
+- EGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/egcf), backend: `PyTorch`)
 
 As for `TensorFlow`, we tested our models using the gpu version `2.3.2`, with CUDA `10.1` and cuDNN `7.6`. 
 
