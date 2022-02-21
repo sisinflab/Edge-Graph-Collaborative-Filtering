@@ -6,4 +6,4 @@ parser.add_argument('--model', type=str, default='egcf')
 parser.add_argument('--dataset', type=str, default='amazon_baby')
 args = parser.parse_args()
 
-run_experiment(f"config_files/{args.model}_{args.dataset}.yml")
+run_experiment(f"config_files/{args.model}/{args.dataset}.yml")
