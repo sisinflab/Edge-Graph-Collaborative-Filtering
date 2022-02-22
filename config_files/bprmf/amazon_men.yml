@@ -1,0 +1,29 @@
+experiment:
+  data_config:
+    strategy: fixed
+    dataset_path: ../data/{0}/trainingset.tsv
+    train_path: ../data/{0}/trainingset.tsv
+    validation_path: ../data/{0}/validationset.tsv
+    test_path: ../data/{0}/testset.tsv
+  dataset: amazon_men
+  top_k: 50
+  evaluation:
+    cutoffs: [10, 20, 50]
+    simple_metrics: [Recall, HR, nDCG, Precision, F1, MAP, MAR, LAUC, ItemCoverage, nDCGRendle2020, Gini, SEntropy, EFD, EPC]
+  gpu: 0
+  models:
+    BPRMF:
+      meta:
+        hyper_max_evals: 10
+        hyper_opt_alg: tpe
+        verbose: True
+        save_recs: False
+        validation_rate: 20
+      lr: [ loguniform, -6.90775527898, 0 ]
+      batch_size: 256
+      epochs: 400
+      bias_regularization: 0
+      user_regularization: [ loguniform, -6.90775527898, 0 ]
+      positive_item_regularization: [ loguniform, -6.90775527898, 0 ]
+      negative_item_regularization: [ loguniform, -9.21034037198, 0 ]
+      factors: [ quniform, 64, 512, 1 ]

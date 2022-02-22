@@ -1,0 +1,18 @@
+experiment:
+  data_config:
+    strategy: fixed
+    dataset_path: ../data/{0}/trainingset.tsv
+    train_path: ../data/{0}/trainingset.tsv
+    validation_path: ../data/{0}/validationset.tsv
+    test_path: ../data/{0}/testset.tsv
+  dataset: amazon_baby
+  top_k: 50
+  evaluation:
+    cutoffs: [10, 20, 50]
+    simple_metrics: [Recall, HR, nDCG, Precision, F1, MAP, MAR, LAUC, ItemCoverage, nDCGRendle2020, Gini, SEntropy, EFD, EPC]
+  gpu: 0
+  models:
+    MostPop:
+      meta:
+        verbose: True
+        save_recs: False
