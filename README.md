@@ -51,6 +51,7 @@ Then, you may use the following Docker images to instantiate two containers equi
 - Container Docker with CUDA `10.1` and cuDNN `7.6` (the environment for `TensorFlow`): [link](https://hub.docker.com/layers/nvidia/cuda/10.1-cudnn7-devel-ubuntu18.04/images/sha256-c38db79d18f576fa84b041638b2d560cd7d450791279a5cdfc044fb5708e431b?context=explore)
 - Container Docker with CUDA `10.2` and cuDNN `8.0` (the environment for `PyTorch`): [link](https://hub.docker.com/layers/nvidia/cuda/10.2-cudnn8-devel-ubuntu18.04/images/sha256-3d1aefa978b106e8cbe50743bba8c4ddadacf13fe3165dd67a35e4d904f3aabe?context=explore)
 
+After the setup of your Docker containers, you may follow the exact same guidelines as scenario #1.
 ### Datasets
 At `./data/` you may find the files for the datasets, i.e., training, validation, and test sets, and the interactions file (for EGCF). In order not to overload this repository, we provide the links to Google Drive for the review-based side information:
 
