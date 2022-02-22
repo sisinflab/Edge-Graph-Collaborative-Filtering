@@ -44,7 +44,12 @@ $ pip install torch-scatter torch-sparse torch-cluster torch-spline-conv torch-g
 ### Installation guidelines: scenario #2
 A more convenient way of running experiments is to instantiate two docker containers having CUDA `10.1` and CUDA `10.2` already installed, respectively. We provide the Dockerfile to build each of the two containers.
 
-As initial steps, make sure you have Docker and NVIDIA Container Toolkit installed on your machine (you may refer to this [guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installing-on-ubuntu-and-debian)).
+Make sure you have Docker and NVIDIA Container Toolkit installed on your machine (you may refer to this [guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installing-on-ubuntu-and-debian)).
+
+Then, you may use the following Docker images to instantiate two containers equipped with CUDA `10.1` and CUDA `10.2`, respectively:
+
+- Container Docker with CUDA `10.1` and cuDNN `7.6` (the environment for `TensorFlow`): [link](https://hub.docker.com/layers/nvidia/cuda/10.1-cudnn7-devel-ubuntu18.04/images/sha256-c38db79d18f576fa84b041638b2d560cd7d450791279a5cdfc044fb5708e431b?context=explore)
+- Container Docker with CUDA `10.2` and cuDNN `8.0` (the environment for `PyTorch`): [link](https://hub.docker.com/layers/nvidia/cuda/10.2-cudnn8-devel-ubuntu18.04/images/sha256-3d1aefa978b106e8cbe50743bba8c4ddadacf13fe3165dd67a35e4d904f3aabe?context=explore)
 
 ### Datasets
 At `./data/` you may find the files for the datasets, i.e., training, validation, and test sets, and the interactions file (for EGCF). In order not to overload this repository, we provide the links to Google Drive for the review-based side information:
