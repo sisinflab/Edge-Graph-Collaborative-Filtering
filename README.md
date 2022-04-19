@@ -1,6 +1,7 @@
-# Edge Graph Collaborative Filtering
+# Exploiting Review Sentiment to Smooth the Importance of Neighbors in Graph Collaborative Filtering
 
-This is the official implementation of the paper _Edge Graph Collaborative Filtering_, under review as short paper at SIGIR 2022.
+This is the official implementation of the paper _Exploiting Review Sentiment to Smooth the Importance of Neighbors in Graph
+Collaborative Filtering_, under review as full paper at RecSys 2022.
 
 This repository is heavily dependent on the framework **Elliot**, so we suggest you refer to the official GitHub [page](https://github.com/sisinflab/elliot) and [documentation](https://elliot.readthedocs.io/en/latest/).
 
@@ -13,7 +14,7 @@ We report the codes for the baselines, and the proposed model EGCF. In the follo
 - DeepCoNN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/deepconn), backend: `TensorFlow`)
 - NGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/ngcf), backend: `PyTorch`)
 - LightGCN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/lightgcn), backend: `PyTorch`)
-- EGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/egcf), backend: `PyTorch`)
+- SentiGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/egcf), backend: `PyTorch`)
 
 As for `TensorFlow`, we tested our models using the gpu version `2.3.2`, with CUDA `10.1` and cuDNN `7.6`. 
 
