@@ -1,7 +1,6 @@
-# Exploiting Review Sentiment to Smooth the Importance of Neighbors in Graph Collaborative Filtering
+# Edge-enriched Graph Collaborative Filtering with Customers’ Reviews
 
-This is the official implementation of the paper _Exploiting Review Sentiment to Smooth the Importance of Neighbors in Graph
-Collaborative Filtering_, under review as full paper at RecSys 2022.
+This is the official implementation of the paper _Edge-enriched Graph Collaborative Filtering with Customers’ Reviews_, under review as full paper at RecSys 2022.
 
 This repository is heavily dependent on the framework **Elliot**, so we suggest you refer to the official GitHub [page](https://github.com/sisinflab/elliot) and [documentation](https://elliot.readthedocs.io/en/latest/).
 
