@@ -9,7 +9,7 @@ experiment:
       - dataloader: InteractionsTextualAttributes
         interactions_features: ../data/{0}/original/text_features_all-mpnet-base-v2/
         interactions: ../data/{0}/interactions.tsv
-  dataset: amazon_boys_girls
+  dataset: amazon_men
   top_k: 50
   evaluation:
     cutoffs: [10, 20, 50]
@@ -28,7 +28,7 @@ experiment:
         validation_metric: Recall
         restore: False
       lr: [loguniform, -8.90775527898, -6.90775527898]
-      n_layers: [quniform, 2, 3, 1]
+      n_layers: 3
       epochs: 400
       batch_size: 256
       emb: 64

@@ -28,7 +28,7 @@ experiment:
         validation_metric: Recall
         restore: False
       lr: [loguniform, -8.90775527898, -6.90775527898]
-      n_layers: [quniform, 2, 3, 1]
+      n_layers: 4
       epochs: 400
       batch_size: 256
       emb: 64
