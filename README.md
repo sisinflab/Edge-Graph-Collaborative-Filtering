@@ -55,13 +55,13 @@ Then, you may use the following Docker images to instantiate two containers equi
 
 After the setup of your Docker containers, you may follow the exact same guidelines as scenario #1.
 ### Datasets
-At `./data/` you may find the files for the datasets, i.e., training, validation, and test sets, and the interactions file (for EGCF). In order not to overload this repository, we provide the links to Google Drive for the review-based side information:
+At `./data/` you may find all tsv files for the datasets, i.e., training, validation, and test sets, and the interactions file (for EGCF). In order not to overload this repository, we provide the links to Google Drive for the review-based side information (both for EGCF and other baselines):
 
-| Dataset           | Link                                                                                        |
-|-------------------|---------------------------------------------------------------------------------------------|
-| **Baby**          | [drive](https://drive.google.com/file/d/1XKU7ZglJVvKimLPklexbTgiqrqU6WLnv/view?usp=sharing) |
-| **Boys \& Girls** | [drive](https://drive.google.com/file/d/1X_2Sfqba7_3iSYYTeEYlCC12sQpcPdAD/view?usp=sharing) |
-| **Men**           | [drive](https://drive.google.com/file/d/1bk8uHWBVOGkUmQjCzMEXX6BKa4UDtIW-/view?usp=sharing) |
+| Dataset           | Link EGCF                                                                                   | Link Review Baselines |
+|-------------------|---------------------------------------------------------------------------------------------|-----------------------|
+| **Baby**          | [drive](https://drive.google.com/file/d/1XKU7ZglJVvKimLPklexbTgiqrqU6WLnv/view?usp=sharing) |[drive](https://drive.google.com/file/d/11wDeIZqWA4VHnJJF5qAbEIJnPhsJ850j/view?usp=sharing) |
+| **Boys \& Girls** | [drive](https://drive.google.com/file/d/1X_2Sfqba7_3iSYYTeEYlCC12sQpcPdAD/view?usp=sharing) |[drive](https://drive.google.com/file/d/1jFC5WMxlQW7nUOmadXTJ9ZREW2lFSdZh/view?usp=sharing) |
+| **Men**           | [drive](https://drive.google.com/file/d/1bk8uHWBVOGkUmQjCzMEXX6BKa4UDtIW-/view?usp=sharing) |[drive](https://drive.google.com/file/d/1BhSJf2ZptrvB96TQRszfGQF0lGF8oWKb/view?usp=sharing) |
 
 After having downloaded the three zip files, just put them into `./data/amazon_baby/`, `./data/amazon_boys_girls/`, and `./data/amazon_men/`, respectively. 
 
