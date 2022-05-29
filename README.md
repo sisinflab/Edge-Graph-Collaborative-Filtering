@@ -78,4 +78,6 @@ where `<model-name>` and `<dataset-name>` refer to the name of the model to be r
 
 You may find all configutation files at `./config_files/<model-name>/<dataset-name>.yml`, where all hyperparameter spaces and the exploration strategies are reported.
 
+As for EGCF (i.e., our proposed model), configuration files follow the pattern `./config_files/egcf/<dataset-name>_<num_layer>.yml`, useful to run the study on the hop number (and to select the best model configuration).
+
 Results about calculated metrics are available in the folder `./results/<dataset-name>/performance/`. Specifically, you need to access the tsv file having the following name pattern: `rec_cutoff_<cutoff>_relthreshold_0_<datetime-experiment-end>.tsv`.
