@@ -9,7 +9,7 @@ experiment:
   top_k: 50
   evaluation:
     cutoffs: [10, 20, 50]
-    simple_metrics: [Recall, HR, nDCG, Precision, F1, MAP, MAR, LAUC, ItemCoverage, nDCGRendle2020, Gini, SEntropy, EFD, EPC]
+    simple_metrics: [Recall, nDCG, MAR, EPC, EFD, Gini, SEntropy, ItemCoverage]
   gpu: 0
   models:
     MostPop:

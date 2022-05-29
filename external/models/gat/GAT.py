@@ -1,73 +1,102 @@
+from ast import literal_eval as make_tuple
+
 from tqdm import tqdm
 import numpy as np
 import torch
 import os
-
 from elliot.utils.write import store_recommendation
 
 from elliot.dataset.samplers import custom_sampler as cs
-
 from elliot.recommender import BaseRecommenderModel
 from elliot.recommender.base_recommender_model import init_charger
 from elliot.recommender.recommender_utils_mixin import RecMixin
-from .EGCFModel import EGCFModel
+from .GATModel import GATModel
 
 from torch_sparse import SparseTensor
 
 
-class EGCF(RecMixin, BaseRecommenderModel):
+class GAT(RecMixin, BaseRecommenderModel):
     r"""
-    Edge Graph Collaborative Filtering
-    """
+    Graph Attention Networks
 
+    For further details, please refer to the `paper <https://openreview.net/forum?id=rJXMpikCZ>`_
+
+    Args:
+        lr: Learning rate
+        epochs: Number of epochs
+        factors: Number of latent factors
+        batch_size: Batch size
+        l_w: Regularization coefficient
+        weight_size: Tuple with number of units for each embedding propagation layer
+        heads: Tuple with numbers for multi-head-attentions
+        message_dropout: Tuple with dropout rate for each embedding propagation layer
+
+    To include the recommendation model, add it to the config file adopting the following pattern:
+
+    .. code:: yaml
+
+      models:
+        GAT:
+          meta:
+            save_recs: True
+          lr: 0.0005
+          epochs: 50
+          batch_size: 512
+          factors: 64
+          l_w: 0.1
+          weight_size: (64,)
+          heads: (8,)
+          message_dropout: (0.1,)
+    """
     @init_charger
     def __init__(self, data, config, params, *args, **kwargs):
-        self._sampler = cs.Sampler(self._data.i_train_dict)
 
+        self._sampler = cs.Sampler(self._data.i_train_dict)
         if self._batch_size < 1:
             self._batch_size = self._num_users
 
         ######################################
+
         self._params_list = [
-            ("_lr", "lr", "lr", 0.0005, float, None),
-            ("_emb", "emb", "emb", 64, int, None),
-            ("_n_layers", "n_layers", "n_layers", 64, int, None),
+            ("_learning_rate", "lr", "lr", 0.0005, float, None),
+            ("_factors", "factors", "factors", 64, int, None),
             ("_l_w", "l_w", "l_w", 0.01, float, None),
-            ("_loader", "loader", "loader", 'InteractionsTextualAttributes', str, None)
+            ("_weight_size", "weight_size", "weight_size", "(64,)", lambda x: list(make_tuple(x)),
+             lambda x: self._batch_remove(str(x), " []").replace(",", "-")),
+            ("_heads", "heads", "heads", "(1,)", lambda x: list(make_tuple(x)),
+             lambda x: self._batch_remove(str(x), " []").replace(",", "-")),
+            ("_message_dropout", "message_dropout", "message_dropout", 0.1, float, None),
         ]
         self.autoset_params()
 
-        self._side_edge_textual = self._data.side_information.InteractionsTextualAttributes
+        self._n_layers = len(self._weight_size)
 
         row, col = data.sp_i_train.nonzero()
         col = [c + self._num_users for c in col]
-        node_node_graph = np.array([row, col])
-        node_node_graph = torch.tensor(node_node_graph, dtype=torch.int64)
+        edge_index = np.array([row, col])
+        edge_index = torch.tensor(edge_index, dtype=torch.int64)
+        self.adj = SparseTensor(row=torch.cat([edge_index[0], edge_index[1]], dim=0),
+                                col=torch.cat([edge_index[1], edge_index[0]], dim=0),
+                                sparse_sizes=(self._num_users + self._num_items,
+                                              self._num_users + self._num_items))
 
-        self.node_node_adj = SparseTensor(row=torch.cat([node_node_graph[0], node_node_graph[1]], dim=0),
-                                          col=torch.cat([node_node_graph[1], node_node_graph[0]], dim=0),
-                                          sparse_sizes=(self._num_users + self._num_items,
-                                                        self._num_users + self._num_items))
-
-        edge_features = self._side_edge_textual.object.get_all_features()
-
-        self._model = EGCFModel(
+        self._model = GATModel(
             num_users=self._num_users,
             num_items=self._num_items,
-            learning_rate=self._lr,
-            embed_k=self._emb,
+            learning_rate=self._learning_rate,
+            embed_k=self._factors,
             l_w=self._l_w,
+            weight_size=self._weight_size,
             n_layers=self._n_layers,
-            edge_features=edge_features,
-            node_node_adj=self.node_node_adj,
-            rows=row,
-            cols=col,
+            heads=self._heads,
+            message_dropout=self._message_dropout,
+            adj=self.adj,
             random_seed=self._seed
         )
 
     @property
     def name(self):
-        return "EGCF" \
+        return "GAT" \
                + f"_{self.get_base_params_shortcut()}" \
                + f"_{self.get_params_shortcut()}"
 
@@ -90,10 +119,10 @@ class EGCF(RecMixin, BaseRecommenderModel):
     def get_recommendations(self, k: int = 100):
         predictions_top_k_test = {}
         predictions_top_k_val = {}
-        gu, gi, gut, git = self._model.propagate_embeddings(evaluate=True)
+        gu, gi = self._model.propagate_embeddings(evaluate=True)
         for index, offset in enumerate(range(0, self._num_users, self._batch_size)):
             offset_stop = min(offset + self._batch_size, self._num_users)
-            predictions = self._model.predict(gu[offset: offset_stop], gi, gut[offset: offset_stop], git)
+            predictions = self._model.predict(gu[offset: offset_stop], gi)
             recs_val, recs_test = self.process_protocol(k, predictions, offset, offset_stop)
             predictions_top_k_val.update(recs_val)
             predictions_top_k_test.update(recs_test)
@@ -115,7 +144,7 @@ class EGCF(RecMixin, BaseRecommenderModel):
             self._results.append(result_dict)
 
             if it is not None:
-                self.logger.info(f'Epoch {(it + 1)}/{self._epochs} loss {loss / (it + 1):.5f}')
+                self.logger.info(f'Epoch {(it + 1)}/{self._epochs} loss {loss/(it + 1):.5f}')
             else:
                 self.logger.info(f'Finished')
 

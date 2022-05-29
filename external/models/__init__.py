@@ -16,8 +16,11 @@ import sys
 for _backend in sys.modules["external"].backend:
     if _backend == "tensorflow":
         from .convmf.ConvMF import ConvMF
-        from .deepconn.DeepCoNN import DeepCoNN
+        from .rmg.RMG import RMG
     elif _backend == "pytorch":
         from .ngcf.NGCF import NGCF
         from .lightgcn.LightGCN import LightGCN
         from .egcf.EGCF import EGCF
+        from .gat.GAT import GAT
+        from .dgcf.DGCF import DGCF
+

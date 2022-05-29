@@ -69,11 +69,11 @@ class convMF(object):
         else:
             self.item_weight = np.ones(self.item_total, dtype=float)
 
-        self.user_embeddings = np.random.uniform(size=(self.user_total, self.embedding_size))
+        self.user_embeddings = np.random.uniform(size=(self.user_total, self.factors_dim))
 
         self.cnn_module = CNN_module(self.factors_dim, vocab_size, self.dropout_rate, self.batch_size,
                                      self.embedding_size, self.max_len, self.kernel_per_ws, self.init_W, self.seed)
-        self.theta = self.cnn_module.get_projection_layer(CNN_X)
+        self.theta = self.cnn_module.get_projection_layer(self.CNN_X)
         self.item_embeddings = self.theta
         self.pred_mat = None
         self.lambda_u_matrix = self.lambda_u * np.eye(self.factors_dim, dtype=np.float32)
@@ -123,7 +123,7 @@ class convMF(object):
 
             loss = loss + np.sum(sub_loss)
             history = self.cnn_module.train(self.CNN_X, self.item_embeddings, self.item_weight, self.seed)
-
+            self.theta = self.cnn_module.get_projection_layer(self.CNN_X)
             cnn_loss = history.history['loss'][-1]
 
             loss = loss - 0.5 * self.lambda_i * cnn_loss * self.item_total

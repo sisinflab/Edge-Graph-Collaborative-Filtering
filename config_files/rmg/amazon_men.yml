@@ -1,12 +1,19 @@
 experiment:
+  backend: tensorflow
   data_config:
     strategy: fixed
     train_path: ../data/{0}/trainingset_explicit.tsv
     validation_path: ../data/{0}/validationset_explicit.tsv
     test_path: ../data/{0}/testset_explicit.tsv
     side_information:
-      - dataloader: TextualAttributeSequence
-        textual_features: ../data/{0}/{0}_document.all
+      - dataloader: WordsTextualAttributesPreprocessed
+        all_item_texts: ../data/{0}/all_item_texts.npy
+        all_user_texts: ../data/{0}/all_user_texts.npy
+        embed_vocabulary: ../data/{0}/embed_vocabulary.npy
+        item_to_user: ../data/{0}/item_to_user.npy
+        item_to_user_to_item: ../data/{0}/item_to_user_to_item.npy
+        user_to_item: ../data/{0}/user_to_item.npy
+        user_to_item_to_user: ../data/{0}/user_to_item_to_user.npy
   dataset: amazon_men
   top_k: 50
   evaluation:
@@ -16,20 +23,16 @@ experiment:
   gpu: 0
   external_models_path: ../external/models/__init__.py
   models:
-    external.ConvMF:
+    external.RMG:
       meta:
         hyper_max_evals: 10
         hyper_opt_alg: tpe
         verbose: True
-        save_recs: False
-        save_weights: False
+        save_recs: True
+        save_weights: True
         validation_rate: 20
+      lr: [loguniform, -11.512925465, -2.30258509299]
+      d: 0.2
       epochs: 400
-      drop_out: [loguniform, -2.30258509299, 0 ]
       batch_size: 256
-      l_u: [ quniform, 25, 150, 25 ]
-      l_i: [ quniform, 25, 150, 25 ]
-      embedding_size: 64
-      factors_dim: 64
-      kernel_per_ws: [ quniform, 25, 150, 25 ]
-      give_item_weight: True
+      be: 16

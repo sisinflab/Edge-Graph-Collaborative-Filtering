@@ -4,70 +4,94 @@ import torch
 import os
 
 from elliot.utils.write import store_recommendation
-
 from elliot.dataset.samplers import custom_sampler as cs
-
 from elliot.recommender import BaseRecommenderModel
 from elliot.recommender.base_recommender_model import init_charger
 from elliot.recommender.recommender_utils_mixin import RecMixin
-from .EGCFModel import EGCFModel
-
-from torch_sparse import SparseTensor
+from .DGCFModel import DGCFModel
 
 
-class EGCF(RecMixin, BaseRecommenderModel):
+class DGCF(RecMixin, BaseRecommenderModel):
     r"""
-    Edge Graph Collaborative Filtering
-    """
+    Disentangled Graph Collaborative Filtering
 
+    For further details, please refer to the `paper <https://dl.acm.org/doi/abs/10.1145/3397271.3401137>`_
+
+    Args:
+        lr: Learning rate
+        epochs: Number of epochs
+        factors: Number of latent factors
+        batch_size: Batch size
+        l_w_bpr: Regularization coefficient for bpr loss
+        l_w_ind: Regularization coefficient for independence loss
+        ind_batch_size: Batch size for the independence loss
+        n_layers: Number of propagation embedding layers
+        intents: Number of intents for disentanglement
+        routing_iterations: Number of routing iterations
+
+    To include the recommendation model, add it to the config file adopting the following pattern:
+
+    .. code:: yaml
+
+      models:
+        DGCF:
+          meta:
+            save_recs: True
+          lr: 0.0005
+          epochs: 50
+          batch_size: 512
+          factors: 64
+          l_w_bpr: 0.1
+          l_w_ind: 0.1
+          ind_batch_size: 512
+          n_layers: 3
+          intents: 16
+          routing_iterations: 2
+    """
     @init_charger
     def __init__(self, data, config, params, *args, **kwargs):
+
         self._sampler = cs.Sampler(self._data.i_train_dict)
 
         if self._batch_size < 1:
             self._batch_size = self._num_users
 
         ######################################
+
         self._params_list = [
-            ("_lr", "lr", "lr", 0.0005, float, None),
-            ("_emb", "emb", "emb", 64, int, None),
-            ("_n_layers", "n_layers", "n_layers", 64, int, None),
-            ("_l_w", "l_w", "l_w", 0.01, float, None),
-            ("_loader", "loader", "loader", 'InteractionsTextualAttributes', str, None)
+            ("_learning_rate", "lr", "lr", 0.0005, float, None),
+            ("_factors", "factors", "factors", 64, int, None),
+            ("_l_w_bpr", "l_w_bpr", "l_w_bpr", 0.01, float, None),
+            ("_l_w_ind", "l_w_ind", "l_w_ind", 0.01, float, None),
+            ("_ind_batch_size", "ind_batch_size", "ind_batch_size", 512, int, None),
+            ("_n_layers", "n_layers", "n_layers", 3, int, None),
+            ("_intents", "intents", "intents", 16, int, None),
+            ("_routing_iterations", "routing_iterations", "routing_iterations", 2, int, None)
         ]
         self.autoset_params()
 
-        self._side_edge_textual = self._data.side_information.InteractionsTextualAttributes
-
         row, col = data.sp_i_train.nonzero()
         col = [c + self._num_users for c in col]
-        node_node_graph = np.array([row, col])
-        node_node_graph = torch.tensor(node_node_graph, dtype=torch.int64)
+        self.edge_index = np.array([list(row) + col, col + list(row)])
 
-        self.node_node_adj = SparseTensor(row=torch.cat([node_node_graph[0], node_node_graph[1]], dim=0),
-                                          col=torch.cat([node_node_graph[1], node_node_graph[0]], dim=0),
-                                          sparse_sizes=(self._num_users + self._num_items,
-                                                        self._num_users + self._num_items))
-
-        edge_features = self._side_edge_textual.object.get_all_features()
-
-        self._model = EGCFModel(
+        self._model = DGCFModel(
             num_users=self._num_users,
             num_items=self._num_items,
-            learning_rate=self._lr,
-            embed_k=self._emb,
-            l_w=self._l_w,
+            learning_rate=self._learning_rate,
+            embed_k=self._factors,
+            l_w_bpr=self._l_w_bpr,
+            l_w_ind=self._l_w_ind,
+            ind_batch_size=self._ind_batch_size,
             n_layers=self._n_layers,
-            edge_features=edge_features,
-            node_node_adj=self.node_node_adj,
-            rows=row,
-            cols=col,
+            intents=self._intents,
+            routing_iterations=self._routing_iterations,
+            edge_index=self.edge_index,
             random_seed=self._seed
         )
 
     @property
     def name(self):
-        return "EGCF" \
+        return "DGCF" \
                + f"_{self.get_base_params_shortcut()}" \
                + f"_{self.get_params_shortcut()}"
 
@@ -90,10 +114,12 @@ class EGCF(RecMixin, BaseRecommenderModel):
     def get_recommendations(self, k: int = 100):
         predictions_top_k_test = {}
         predictions_top_k_val = {}
-        gu, gi, gut, git = self._model.propagate_embeddings(evaluate=True)
+        gu, gi = self._model.propagate_embeddings(evaluate=True)
+        gu, gi = torch.reshape(gu, (gu.shape[0], gu.shape[1] * gu.shape[2])), torch.reshape(gi, (
+            gi.shape[0], gi.shape[1] * gi.shape[2]))
         for index, offset in enumerate(range(0, self._num_users, self._batch_size)):
             offset_stop = min(offset + self._batch_size, self._num_users)
-            predictions = self._model.predict(gu[offset: offset_stop], gi, gut[offset: offset_stop], git)
+            predictions = self._model.predict(gu[offset: offset_stop], gi)
             recs_val, recs_test = self.process_protocol(k, predictions, offset, offset_stop)
             predictions_top_k_val.update(recs_val)
             predictions_top_k_test.update(recs_test)
@@ -115,7 +141,7 @@ class EGCF(RecMixin, BaseRecommenderModel):
             self._results.append(result_dict)
 
             if it is not None:
-                self.logger.info(f'Epoch {(it + 1)}/{self._epochs} loss {loss / (it + 1):.5f}')
+                self.logger.info(f'Epoch {(it + 1)}/{self._epochs} loss {loss/(it + 1):.5f}')
             else:
                 self.logger.info(f'Finished')
 
