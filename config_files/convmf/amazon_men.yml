@@ -6,7 +6,7 @@ experiment:
     test_path: ../data/{0}/testset_explicit.tsv
     side_information:
       - dataloader: TextualAttributeSequence
-        textual_features: ../data/{0}/{0}_document.all
+        textual_features: ../data/{0}/document.all
   dataset: amazon_men
   top_k: 50
   evaluation:
