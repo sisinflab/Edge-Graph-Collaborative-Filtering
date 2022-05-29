@@ -6,7 +6,7 @@ This repository is heavily dependent on the framework **Elliot**, so we suggest 
 
 We report the codes for the baselines, and the proposed model EGCF. In the following, we indicate the specific path for each model, and its reference backend (i.e., NumPy, TensorFlow or PyTorch):
 
-- MostPop ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/elliot/recommender/unpersonalized/most_popular/), backend: `NumPy`)
+- MostPop ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/elliot/recommender/unpersonalized/most_popular/most_popular.py), backend: `NumPy`)
 - BPRMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/latent_factor_models/BPRMF), backend: `NumPy`)
 - MultiVAE ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/autoencoders/vae), backend: `TensorFlow`)
 - ConvMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/convmf), backend: `TensorFlow`)
