@@ -7,15 +7,15 @@ This repository is heavily dependent on the framework **Elliot**, so we suggest 
 We report the codes for the baselines, and the proposed model EGCF. In the following, we indicate the specific path for each model, and its reference backend (i.e., NumPy, TensorFlow or PyTorch):
 
 - MostPop ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/elliot/recommender/unpersonalized/most_popular/most_popular.py), backend: `NumPy`)
-- BPRMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/latent_factor_models/BPRMF), backend: `NumPy`)
-- MultiVAE ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/autoencoders/vae), backend: `TensorFlow`)
-- ConvMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/convmf), backend: `TensorFlow`)
-- RMG ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/deepconn), backend: `TensorFlow`)
-- NGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/ngcf), backend: `PyTorch`)
-- LightGCN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/lightgcn), backend: `PyTorch`)
-- GAT ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/gat), backend: `PyTorch`)
-- DGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/dgcf), backend: `PyTorch`)
-- EGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/egcf), backend: `PyTorch`)
+- BPRMF ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/elliot/recommender/latent_factor_models/BPRMF/BPRMF.py), backend: `NumPy`)
+- MultiVAE ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/elliot/recommender/autoencoders/vae/multi_vae.py), backend: `TensorFlow`)
+- ConvMF ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/convmf/ConvMF.py), backend: `TensorFlow`)
+- RMG ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/rmg/RMG.py), backend: `TensorFlow`)
+- NGCF ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/ngcf/NGCF.py), backend: `PyTorch`)
+- LightGCN ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/lightgcn/LightGCN.py), backend: `PyTorch`)
+- GAT ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/gat/GAT.py), backend: `PyTorch`)
+- DGCF ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/dgcf/DGCF.py), backend: `PyTorch`)
+- EGCF ([path](https://anonymous.4open.science/r/Edge-Graph-Collaborative-Filtering-D0D3/external/models/egcf/EGCF.py), backend: `PyTorch`)
 
 As for `TensorFlow`, we tested our models using the gpu version `2.3.2`, with CUDA `10.1` and cuDNN `7.6`. 
 
