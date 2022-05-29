@@ -1,6 +1,6 @@
-# Edge-enriched Graph Collaborative Filtering with Customers’ Reviews
+# Reshaping Graph Recommendation with Edge Graph Collaborative Filtering and Customer Reviews
 
-This is the official implementation of the paper _Edge-enriched Graph Collaborative Filtering with Customers’ Reviews_, under review as full paper at RecSys 2022.
+This is the official implementation of the paper _Reshaping Graph Recommendation with Edge Graph Collaborative Filtering and Customer Reviews_, under review as full paper at RecSys 2022.
 
 This repository is heavily dependent on the framework **Elliot**, so we suggest you refer to the official GitHub [page](https://github.com/sisinflab/elliot) and [documentation](https://elliot.readthedocs.io/en/latest/).
 
@@ -10,10 +10,12 @@ We report the codes for the baselines, and the proposed model EGCF. In the follo
 - BPRMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/latent_factor_models/BPRMF), backend: `NumPy`)
 - MultiVAE ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/elliot/recommender/autoencoders/vae), backend: `TensorFlow`)
 - ConvMF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/convmf), backend: `TensorFlow`)
-- DeepCoNN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/deepconn), backend: `TensorFlow`)
+- RMG ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/deepconn), backend: `TensorFlow`)
 - NGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/ngcf), backend: `PyTorch`)
 - LightGCN ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/lightgcn), backend: `PyTorch`)
-- SentiGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/egcf), backend: `PyTorch`)
+- GAT ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/gat), backend: `PyTorch`)
+- DGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/dgcf), backend: `PyTorch`)
+- EGCF ([path](https://github.com/sisinflab/Edge-Graph-Collaborative-Filtering/tree/master/external/models/egcf), backend: `PyTorch`)
 
 As for `TensorFlow`, we tested our models using the gpu version `2.3.2`, with CUDA `10.1` and cuDNN `7.6`. 
 
