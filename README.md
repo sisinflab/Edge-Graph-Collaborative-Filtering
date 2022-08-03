@@ -1,6 +1,6 @@
 # Reshaping Graph Recommendation with Edge Graph Collaborative Filtering and Customer Reviews
 
-This is the official implementation of the paper _Reshaping Graph Recommendation with Edge Graph Collaborative Filtering and Customer Reviews_, under review as full paper at RecSys 2022.
+This is the official implementation of the paper _Reshaping Graph Recommendation with Edge Graph Collaborative Filtering and Customer Reviews_, under review as full paper at DL4SR@CIKM 2022.
 
 This repository is heavily dependent on the framework **Elliot**, so we suggest you refer to the official GitHub [page](https://github.com/sisinflab/elliot) and [documentation](https://elliot.readthedocs.io/en/latest/).
 
